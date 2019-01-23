@@ -1,7 +1,9 @@
-Vimium - The Hacker's Browser
+Dark Vimium
 =============================
 
 [![Build Status](https://travis-ci.org/philc/vimium.svg?branch=master)](https://travis-ci.org/philc/vimium)
+
+__This is a dark mode fork of the original Vimium with improved UX__
 
 Vimium is a Chrome extension that provides keyboard-based navigation and control of the web in the spirit of
 the Vim editor.
