@@ -214,6 +214,7 @@ class BookmarkCompleter
       new Suggestion
         queryTerms: @currentSearch.queryTerms
         type: "bookmark"
+        emoji: 📖
         url: bookmark.url
         title: if usePathAndTitle then bookmark.pathAndTitle else bookmark.title
         relevancyFunction: @computeRelevancy
