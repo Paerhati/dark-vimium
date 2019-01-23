@@ -16,6 +16,7 @@ class Suggestion
     # Required options.
     @queryTerms = null
     @type = null
+    @emoji = null
     @url = null
     @relevancyFunction = null
     # Other options.
@@ -54,7 +55,7 @@ class Suggestion
       if request.isCustomSearch
         """
         <div class="vimiumReset vomnibarTopHalf">
-           <span class="vimiumReset vomnibarSource #{insertTextClass}">#{insertTextIndicator}</span><span class="vimiumReset vomnibarSource">#{@type}</span>
+           <span class="vimiumReset vomnibarSource #{insertTextClass}">#{insertTextIndicator}</span><span class="vimiumReset vomnibarSource">#{@emoji}</span>
            <span class="vimiumReset vomnibarTitle">#{@highlightQueryTerms Utils.escapeHtml @title}</span>
            #{relevancyHtml}
          </div>
@@ -62,7 +63,7 @@ class Suggestion
       else
         """
         <div class="vimiumReset vomnibarTopHalf">
-           <span class="vimiumReset vomnibarSource #{insertTextClass}">#{insertTextIndicator}</span><span class="vimiumReset vomnibarSource">#{@type}</span>
+           <span class="vimiumReset vomnibarSource #{insertTextClass}">#{insertTextIndicator}</span><span class="vimiumReset vomnibarSource">#{@emoji}</span>
            <span class="vimiumReset vomnibarTitle">#{@highlightQueryTerms Utils.escapeHtml @title}</span>
          </div>
          <div class="vimiumReset vomnibarBottomHalf">
@@ -214,7 +215,7 @@ class BookmarkCompleter
       new Suggestion
         queryTerms: @currentSearch.queryTerms
         type: "bookmark"
-        emoji: 📖
+        emoji: "📕"
         url: bookmark.url
         title: if usePathAndTitle then bookmark.pathAndTitle else bookmark.title
         relevancyFunction: @computeRelevancy
@@ -274,6 +275,7 @@ class HistoryCompleter
           new Suggestion
             queryTerms: queryTerms
             type: "history"
+            emoji: "🕒"
             url: entry.url
             title: entry.title
             relevancyFunction: @computeRelevancy
@@ -313,6 +315,7 @@ class DomainCompleter
       new Suggestion
         queryTerms: queryTerms
         type: "domain"
+        emoji: "🌐"
         url: domains[0]?[0] ? "" # This is the URL or an empty string, but not null.
         relevancy: 2.0
       ].filter (s) -> 0 < s.url.length
@@ -368,6 +371,7 @@ class TabCompleter
         new Suggestion
           queryTerms: queryTerms
           type: "tab"
+          emoji: "📁"
           url: tab.url
           title: tab.title
           relevancyFunction: @computeRelevancy
