@@ -200,6 +200,12 @@ class LinkHintsMode
       indicator = @mode.indicator + (if typedCharacters then ": \"#{typedCharacters}\"" else "") + "."
       @hintMode.setIndicator indicator
 
+  getClassName: (localHintDescriptor) ->
+    className = "vimiumReset internalVimiumHintMarker vimiumHintMarker"
+    if localHintDescriptor.reason
+      className += " " + localHintDescriptor.reason.toLowerCase().substring(0, localHintDescriptor.reason.length - 1)
+    className
+
   getNextZIndex: do ->
     # This is the starting z-index value; it produces z-index values which are greater than all of the other
     # z-index values used by Vimium.
@@ -220,7 +226,7 @@ class LinkHintsMode
         # Each hint marker is assigned a different z-index.
         el.style.zIndex = @getNextZIndex()
         extend el,
-          className: "vimiumReset internalVimiumHintMarker vimiumHintMarker"
+          className: @getClassName(localHintDescriptor)
           showLinkText: localHintDescriptor.showLinkText
           localHintDescriptor: localHintDescriptor
       else
@@ -845,8 +851,7 @@ LocalHints =
       linkText = element.firstElementChild.alt || element.firstElementChild.title
       showLinkText = true if linkText
     else if hint.reason?
-      linkText = hint.reason
-      showLinkText = true
+      # showLinkText = true
     else if 0 < element.textContent.length
       linkText = element.textContent[...256]
     else if element.hasAttribute "title"
